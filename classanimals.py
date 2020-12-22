@@ -9,8 +9,6 @@ class animal:
 
 
 
-cat = animal('Black', 'small', 'average', 'domestic', 'household')
-lion = animal('Sand', 'large', 'fast', 'predator', 'Savanna')
-turtle = animal('dark green', 'small or average', 'extremely slow', 'sometimes domestic', 'household or sea')
+
 
 
