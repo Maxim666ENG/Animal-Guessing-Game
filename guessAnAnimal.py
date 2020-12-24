@@ -1,87 +1,49 @@
 import random
-from classanimals import animal
 
-words = ['cat', 'lion', 'turtle']
+class Animal:
+    def __init__(self, type, color, size, speed, habitat):
+        self.color = color
+        self.size = size
+        self.speed = speed
+        self.habitat = habitat
+        self.type = type
 
-#giving characteristics to animals which will be printed after calling our 'classanimals' class
-cat = animal('Black', 'small', 'average', 'domestic', 'household')
-lion = animal('Sand', 'large', 'fast', 'predator', 'Savanna')
-turtle = animal('dark green', 'small or average', 'extremely slow', 'sometimes domestic', 'household or sea')
-
-#this block takes a random word from 'words' list
-def word():
-    global generated
-    generated = random.choice(words)
-word()
-
-#This block obliges user to read the rules
+#Function that asks user if he wants to read the rules
 def start():
     while True:
-        request = input("Enter 'Help' to read the rules: ").strip().lower()  #Avoiding code breaking
+        request = input("Enter 'Help' to read the rules or enter 'No' to skip: ").strip().lower()  #Avoiding code breaking
         if request == 'help':
             print("You will be given 3 attempts and qualities of an animal, try to guess what animal it is.")
+            break
+        elif request == 'no':
             break
         else:
             print("Invalid input!")
 start()
 
 
+#creating animals and their characteristics
+animal_tup = (('cat', 'black', 'small', 'average speed', 'household'),('lion', 'sand', 'large', 'fast', 'Savanna'))
 
-# The main game block
-def game():
+#main game logic
+def main_game():
+    rand_animal = random.choice(animal_tup)    #generating randomly an animal
+    animal = Animal(*rand_animal)
     attempts = 3
-    while True:
-        if generated == 'cat':                                       #This line checks if the generated animal is cat
-            print(vars(cat))                                         #Calling our class, and printing the characteristics
-            guess_1 = input('What animal is it?: ').lower().strip()
-            if guess_1 != 'cat':
-                attempts -= 1                                        #Reducing the amount of attempts by 1 if user is wrong
-                print('Wrong! ' + str(attempts) + ' attempts left')
-                if attempts <= 0:
-                    print('You lost.')
-                    break
-            else:
-                print("You've won!")
+    while True:                                    
+        print (f"Can you guess an animal that is {animal.size}, {animal.color} and lives in {animal.habitat}?") #using 'Animal' class to describe an animal
+        guess_1 = input("what animal is it?: ")
+        if guess_1 != animal.type:
+            attempts -= 1                                        #Reducing the amount of attempts by 1 if user is wrong
+            print('Wrong! ' + str(attempts) + ' attempts left')
+            if attempts <= 0:
+                print('You lost.')
                 break
-        #Almost the same block but for 'lion'
-        elif generated == 'lion':
-            print(vars(lion))
-            guess_1 = input('What animal is it?: ').lower().strip()
-            if guess_1 != 'lion':
-                attempts -= 1
-                print('Wrong! ' + str(attempts) + ' attempts left')
-                if attempts <= 0:
-                    print('You lost.')
-                    break
-            else:
-                print("You've won!")
-                break
-        #for 'turtle'
-        elif generated == 'turtle':
-            print(vars(turtle))
-            guess_1 = input('What animal is it?: ').lower().strip()
-            if guess_1 != 'turtle':
-                attempts -= 1
-                print('Wrong! ' + str(attempts) + ' attempts left')
-                if attempts <= 0:
-                    print('You lost.')
-                    break
-            else:
-                print("You've won!")
-                break
-game()
+        else:
+            print("You've won!")
+            break
+main_game()
 
-#If user lost or won, he/she will be asked to play again
-while True:
-    answer = input('Do you want to play again? Yes/No: ')
-    answer = answer.lower().strip()
-    if answer == 'yes':
-        game()
-        break
-    elif answer == 'no' :
-        print("Thank you for playing, bye!")
-        break
-    print('Invalid input')
 
 
 
